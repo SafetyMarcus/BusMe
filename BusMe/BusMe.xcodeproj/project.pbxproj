@@ -15,6 +15,8 @@
 		2C20F8581B3E58E3004A932C /* BusMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C20F8571B3E58E3004A932C /* BusMeTests.swift */; };
 		2C20F8621B3E590C004A932C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C20F8611B3E590C004A932C /* MapKit.framework */; };
 		2C20F8641B3E5ADE004A932C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C20F8631B3E5ADE004A932C /* MainViewController.swift */; };
+		2CBF44C81B3EB36900EC3667 /* stop_times.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBF44C71B3EB36900EC3667 /* stop_times.txt */; };
+		2CBF44CC1B3EBB2100EC3667 /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF44CB1B3EBB2100EC3667 /* BusStop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		2C20F8571B3E58E3004A932C /* BusMeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusMeTests.swift; sourceTree = "<group>"; };
 		2C20F8611B3E590C004A932C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C20F8631B3E5ADE004A932C /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		2CBF44C71B3EB36900EC3667 /* stop_times.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stop_times.txt; sourceTree = "<group>"; };
+		2CBF44CB1B3EBB2100EC3667 /* BusStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				2C20F8631B3E5ADE004A932C /* MainViewController.swift */,
+				2CBF44CB1B3EBB2100EC3667 /* BusStop.swift */,
 				2C20F83E1B3E58E2004A932C /* AppDelegate.swift */,
 				2C20F8451B3E58E2004A932C /* Main.storyboard */,
 				2C20F8481B3E58E3004A932C /* Images.xcassets */,
@@ -97,6 +102,7 @@
 		2C20F83C1B3E58E2004A932C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2CBF44C71B3EB36900EC3667 /* stop_times.txt */,
 				2C20F83D1B3E58E2004A932C /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -207,6 +213,7 @@
 				2C20F8471B3E58E2004A932C /* Main.storyboard in Resources */,
 				2C20F84C1B3E58E3004A932C /* LaunchScreen.xib in Resources */,
 				2C20F8491B3E58E3004A932C /* Images.xcassets in Resources */,
+				2CBF44C81B3EB36900EC3667 /* stop_times.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CBF44CC1B3EBB2100EC3667 /* BusStop.swift in Sources */,
 				2C20F8641B3E5ADE004A932C /* MainViewController.swift in Sources */,
 				2C20F8421B3E58E2004A932C /* BusMe.xcdatamodeld in Sources */,
 				2C20F83F1B3E58E2004A932C /* AppDelegate.swift in Sources */,
