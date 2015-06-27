@@ -115,7 +115,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     func getTimeToStopForId(id: String) -> String
     {
-        var returnString = ""
         var stopTimes: [BusStop] = stops.objectForKey(id) as! [BusStop]
         
         let date = NSDate()
@@ -145,10 +144,22 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
                     let stopHour = stopComponents.hour
                     let stopMinute = stopComponents.minute
                 
-                    if(stopHour < hour && stopMinute < minutes)
+                    if(stopHour > hour)
                     {
-                        var hoursLeft = hour - stopHour
-                        var minutesLeft = minutes - stopMinute
+                        var returnString = ""
+                        var hoursLeft = stopHour - hour
+                        
+                        var minutesLeft = -1
+                        
+                        if(stopMinute > minutes)
+                        {
+                            stopMinute - minutes
+                        }
+                        else
+                        {
+                            hoursLeft -= 1
+                            minutesLeft = 60 - minutes
+                        }
                     
                         if(hoursLeft > 0)
                         {
@@ -163,7 +174,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             }
         }
         
-        return returnString
+        return "No more busses for today"
     }
     
     func isCorrectDay(day: Int, stopDay: NSString) -> Bool
