@@ -14,7 +14,7 @@ import CoreLocation
 class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSURLConnectionDataDelegate
 {
     var apiKey = "?apikey=7x5GCf5SOBXLCt16Z6wd"
-    var urlHeader = "http://api.translink.ca/rttiapi/v1/routes/"
+    var urlHeader = "http://api.translink.ca/rttiapi/v1/buses"
     @IBOutlet var mapView: MKMapView!
     
     var manager: CLLocationManager!
@@ -37,14 +37,21 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!)
     {
-        var url = NSURL(string: "\(urlHeader)110\(apiKey)")
+        var url = NSURL(string: "\(urlHeader)\(apiKey)&lat=\(userLocation.coordinate.latitude)&long=\(userLocation.coordinate.longitude)")
         var request = NSMutableURLRequest(URL: url!)
         request.setValue("application/JSON", forHTTPHeaderField: "Content-Type")
         request.setValue("application/JSON", forHTTPHeaderField: "accept")
-        var connection = NSURLConnection(request: request, delegate: self, startImmediately: true)
-        connection?.start()
+        
+        var annotation = MKPointAnnotation()
+        annotation.title = "Pretend Annotation"
+        annotation.subtitle = "pretending to be an annotation"
+        annotation.coordinate = userLocation.coordinate
+        
+        mapView.addAnnotation(annotation)
+//        var connection = NSURLConnection(request: request, delegate: self, startImmediately: true)
+//        connection?.start()
     }
-    
+      
     func connection(connection: NSURLConnection, didReceiveData data: NSData)
     {
         self.data.appendData(data)
