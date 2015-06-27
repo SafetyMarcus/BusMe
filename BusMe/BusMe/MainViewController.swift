@@ -11,11 +11,14 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate
+class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSURLConnectionDataDelegate
 {
+    var apiKey = "?apikey=7x5GCf5SOBXLCt16Z6wd"
+    var urlHeader = "http://api.translink.ca/rttiapi/v1/routes/"
     @IBOutlet var mapView: MKMapView!
     
     var manager: CLLocationManager!
+    var data = NSMutableData()
 
     override func viewDidLoad()
     {
@@ -23,11 +26,36 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         
         self.mapView.delegate = self
         self.mapView.setUserTrackingMode(.Follow, animated: true)
+
         
         self.manager = CLLocationManager()
         self.manager.delegate = self
         self.manager.desiredAccuracy = kCLLocationAccuracyBest
         self.manager.requestAlwaysAuthorization()
         self.manager.startUpdatingLocation()
+    }
+    
+    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!)
+    {
+        var url = NSURL(string: "\(urlHeader)110\(apiKey)")
+        var request = NSMutableURLRequest(URL: url!)
+        request.setValue("application/JSON", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/JSON", forHTTPHeaderField: "accept")
+        var connection = NSURLConnection(request: request, delegate: self, startImmediately: true)
+        connection?.start()
+    }
+    
+    func connection(connection: NSURLConnection, didReceiveData data: NSData)
+    {
+        self.data.appendData(data)
+    }
+    
+    func connectionDidFinishLoading(connection: NSURLConnection)
+    {
+        var error = NSErrorPointer()
+        var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: error) as! NSDictionary
+        
+        NSString(data: data, encoding: NSUTF8StringEncoding)
+        println(jsonResult)
     }
 }
