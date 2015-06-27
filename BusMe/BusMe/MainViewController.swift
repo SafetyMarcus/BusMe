@@ -174,7 +174,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             }
         }
         
-        return "No more busses for today"
+        return "No more buses for today"
     }
     
     func isCorrectDay(day: Int, stopDay: NSString) -> Bool
