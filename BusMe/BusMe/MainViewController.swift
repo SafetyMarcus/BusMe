@@ -14,17 +14,22 @@ import CoreLocation
 class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSURLConnectionDataDelegate
 {
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet weak var bottomSheet: UIView!
+    @IBOutlet weak var busStop: UILabel!
+    @IBOutlet weak var busTime: UILabel!
     
     var manager: CLLocationManager!
     var data = NSMutableData()
     var stops = NSMutableDictionary()
+    var titles = NSMutableDictionary()
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        self.mapView.delegate = self
         self.mapView.setUserTrackingMode(.Follow, animated: true)
+        self.busStop.text = "Select a bus stop to get started"
+        self.busTime.text = ""
         
         self.manager = CLLocationManager()
         self.manager.delegate = self
@@ -69,6 +74,16 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
+    override func viewWillAppear(animated: Bool)
+    {
+        self.bottomSheet.layer.cornerRadius = 2.0
+        
+        self.bottomSheet.layer.shadowColor = UIColor.blackColor().CGColor
+        self.bottomSheet.layer.shadowOpacity = 0.2
+        self.bottomSheet.layer.shadowRadius = 1.0
+        self.bottomSheet.layer.shadowOpacity = 0.2
+    }
+    
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!)
     {
         var url = NSURL(string: "https://data.qld.gov.au/api/action/datastore_search?resource_id=9efd08f6-3a71-4004-8422-32a2fa8d91ef")
@@ -102,6 +117,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
                     var id: String = stop["stop_id"] as! String
                     annotation.id = id
                     annotation.subtitle = getTimeToStopForId(id)
+                    titles.setValue(annotation.title, forKey: id)
                     
                     var latString: NSString = stop["stop_lat"] as! NSString
                     var longString: NSString = stop["stop_lon"] as! NSString
@@ -116,12 +132,46 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
-    func mapView(mapView: MKMapView!, didDeselectAnnotationView view: MKAnnotationView!)
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView!
+    {
+        if(annotation.isKindOfClass(MKUserLocation))
+        {
+            return nil
+        }
+        
+        var annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "BusStop")
+        
+        var customAnnotation = annotation as! BusStopAnnotation
+        customAnnotation.title = titles.objectForKey(customAnnotation.id) as! String
+        customAnnotation.subtitle = getTimeToStopForId(customAnnotation.id)
+        
+        annotationView.annotation = customAnnotation
+        annotationView.image = UIImage(named: "map_icon")
+        
+        return annotationView
+    }
+    
+    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!)
     {
         if let stopAnnotation = view.annotation as? BusStopAnnotation
         {
-            stopAnnotation.subtitle = getTimeToStopForId(stopAnnotation.id)
+            UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
+                self.bottomSheet.center.y += self.bottomSheet.frame.height
+                }, completion: { (Bool) -> Void in
+                    self.animateSheetIn(view.annotation)
+            })
         }
+    }
+    
+    func animateSheetIn(stopAnnotation: MKAnnotation)
+    {
+        self.busStop.text = stopAnnotation.title
+        self.busTime.text = stopAnnotation.subtitle
+        
+        UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
+            self.bottomSheet.center.y -= self.bottomSheet.frame.height
+            self.view.layoutIfNeeded()
+            }, completion: nil)
     }
     
     func getTimeToStopForId(id: String) -> String

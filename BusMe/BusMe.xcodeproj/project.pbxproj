@@ -18,6 +18,7 @@
 		2CBF44C81B3EB36900EC3667 /* stop_times.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBF44C71B3EB36900EC3667 /* stop_times.txt */; };
 		2CBF44CC1B3EBB2100EC3667 /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF44CB1B3EBB2100EC3667 /* BusStop.swift */; };
 		2CBF44D61B3EED0700EC3667 /* BusStopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF44D51B3EED0700EC3667 /* BusStopAnnotation.swift */; };
+		2CBF44D81B3EFADF00EC3667 /* map_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBF44D71B3EFADF00EC3667 /* map_icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		2CBF44C71B3EB36900EC3667 /* stop_times.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stop_times.txt; sourceTree = "<group>"; };
 		2CBF44CB1B3EBB2100EC3667 /* BusStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
 		2CBF44D51B3EED0700EC3667 /* BusStopAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStopAnnotation.swift; sourceTree = "<group>"; };
+		2CBF44D71B3EFADF00EC3667 /* map_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		2C20F83C1B3E58E2004A932C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2CBF44D71B3EFADF00EC3667 /* map_icon.png */,
 				2CBF44C71B3EB36900EC3667 /* stop_times.txt */,
 				2C20F83D1B3E58E2004A932C /* Info.plist */,
 			);
@@ -213,6 +216,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CBF44D81B3EFADF00EC3667 /* map_icon.png in Resources */,
 				2C20F8471B3E58E2004A932C /* Main.storyboard in Resources */,
 				2C20F84C1B3E58E3004A932C /* LaunchScreen.xib in Resources */,
 				2C20F8491B3E58E3004A932C /* Images.xcassets in Resources */,
