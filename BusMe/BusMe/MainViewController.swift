@@ -101,6 +101,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
                     
                     var id: String = stop["stop_id"] as! String
                     annotation.id = id
+                    annotation.subtitle = getTimeToStopForId(id)
                     
                     var latString: NSString = stop["stop_lat"] as! NSString
                     var longString: NSString = stop["stop_lon"] as! NSString
@@ -117,8 +118,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     func mapView(mapView: MKMapView!, didDeselectAnnotationView view: MKAnnotationView!)
     {
-        var stopAnnotation = view.annotation as! BusStopAnnotation
-        stopAnnotation.subtitle = getTimeToStopForId(stopAnnotation.id)
+        if let stopAnnotation = view.annotation as? BusStopAnnotation
+        {
+            stopAnnotation.subtitle = getTimeToStopForId(stopAnnotation.id)
+        }
     }
     
     func getTimeToStopForId(id: String) -> String
