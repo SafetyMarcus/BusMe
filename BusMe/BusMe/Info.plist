@@ -45,6 +45,10 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>NSLocationUsageDescription</key>
+	<string>Access to your location is required in order to use this application</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Access to your location is required in order to use this application</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

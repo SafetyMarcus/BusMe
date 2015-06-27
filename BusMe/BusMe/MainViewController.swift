@@ -8,11 +8,26 @@
 
 import Foundation
 import UIKit
+import MapKit
+import CoreLocation
 
-class MainViewController: UIViewController
+class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate
 {
+    @IBOutlet var mapView: MKMapView!
+    
+    var manager: CLLocationManager!
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        self.mapView.delegate = self
+        self.mapView.setUserTrackingMode(.Follow, animated: true)
+        
+        self.manager = CLLocationManager()
+        self.manager.delegate = self
+        self.manager.desiredAccuracy = kCLLocationAccuracyBest
+        self.manager.requestAlwaysAuthorization()
+        self.manager.startUpdatingLocation()
     }
 }
