@@ -123,7 +123,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         
         let hour = components.hour
         let minutes = components.minute
-        let dayOfWeek = components.day
+        let dayOfWeek = components.weekday
         
         var max = stopTimes.count - 1
         for index in 0...max
@@ -153,7 +153,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
                         
                         if(stopMinute > minutes)
                         {
-                            stopMinute - minutes
+                            minutesLeft = stopMinute - minutes
                         }
                         else
                         {
