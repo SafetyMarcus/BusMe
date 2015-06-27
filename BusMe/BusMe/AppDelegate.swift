@@ -26,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         let navigationBarAppearance = UINavigationBar.appearance()
-        navigationBarAppearance.tintColor = uiColorFromHex(0xFFE32B)
-        navigationBarAppearance.barTintColor = uiColorFromHex(0xFFE32B)
+        navigationBarAppearance.tintColor = uiColorFromHex(0xFBBA25)
+        navigationBarAppearance.barTintColor = uiColorFromHex(0xFBBA25)
         navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
