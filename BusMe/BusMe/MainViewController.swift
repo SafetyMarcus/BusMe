@@ -13,8 +13,6 @@ import CoreLocation
 
 class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSURLConnectionDataDelegate
 {
-    var apiKey = "?apikey=7x5GCf5SOBXLCt16Z6wd"
-    var urlHeader = "http://api.translink.ca/rttiapi/v1/buses"
     @IBOutlet var mapView: MKMapView!
     
     var manager: CLLocationManager!
@@ -37,19 +35,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!)
     {
-        var url = NSURL(string: "\(urlHeader)\(apiKey)&lat=\(userLocation.coordinate.latitude)&long=\(userLocation.coordinate.longitude)")
+        var url = NSURL(string: "https://data.qld.gov.au/api/action/datastore_search?resource_id=9efd08f6-3a71-4004-8422-32a2fa8d91ef")
         var request = NSMutableURLRequest(URL: url!)
-        request.setValue("application/JSON", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/JSON", forHTTPHeaderField: "accept")
         
-        var annotation = MKPointAnnotation()
-        annotation.title = "Pretend Annotation"
-        annotation.subtitle = "pretending to be an annotation"
-        annotation.coordinate = userLocation.coordinate
-        
-        mapView.addAnnotation(annotation)
-//        var connection = NSURLConnection(request: request, delegate: self, startImmediately: true)
-//        connection?.start()
+        var connection = NSURLConnection(request: request, delegate: self, startImmediately: true)
+        connection?.start()
     }
       
     func connection(connection: NSURLConnection, didReceiveData data: NSData)
@@ -62,7 +52,28 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         var error = NSErrorPointer()
         var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers, error: error) as! NSDictionary
         
-        NSString(data: data, encoding: NSUTF8StringEncoding)
-        println(jsonResult)
+        if let result: NSDictionary = jsonResult["result"] as? NSDictionary
+        {
+            if let records: NSArray = result["records"] as? NSArray
+            {
+                for index in 0...records.count - 1
+                {
+                    var annotation = MKPointAnnotation()
+                    
+                    var stop: NSDictionary = records[index] as! NSDictionary
+                    annotation.title = stop["stop_name"] as! String
+                    annotation.subtitle = "Bus Stop"
+                    
+                    var latString: NSString = stop["stop_lat"] as! NSString
+                    var longString: NSString = stop["stop_lon"] as! NSString
+                    
+                    var lat = latString.doubleValue
+                    var long = longString.doubleValue
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                    
+                    self.mapView.addAnnotation(annotation)
+                }
+            }
+        }
     }
 }
