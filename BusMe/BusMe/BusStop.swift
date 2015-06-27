@@ -10,11 +10,11 @@ import Foundation
 
 class BusStop
 {
-    var day = ""
+    var day = NSString()
     var time = ""
     var stopNo = -1
     
-    init(day: String, time: String, stopNo: NSInteger)
+    init(day: NSString, time: String, stopNo: NSInteger)
     {
         self.day = day
         self.time = time

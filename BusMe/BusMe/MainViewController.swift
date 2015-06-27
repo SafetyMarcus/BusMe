@@ -35,8 +35,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT as Int
         let flag = 0 as UInt
         
-        dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.value), 0))
-        {
+//        dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.value), 0))
+//        {
             if let path = NSBundle.mainBundle().pathForResource("stop_times", ofType: "txt")
             {
                 var stopTimesText = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
@@ -71,7 +71,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             }
             
             println(self.stops)
-        }
+//        }
     }
     
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!)
@@ -103,7 +103,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
                     
                     var stop: NSDictionary = records[index] as! NSDictionary
                     annotation.title = stop["stop_name"] as! String
-                    annotation.subtitle = "Bus Stop"
+                    annotation.subtitle = getTimeToStopForId((stop["stop_id"] as! String))
                     
                     var latString: NSString = stop["stop_lat"] as! NSString
                     var longString: NSString = stop["stop_lon"] as! NSString
@@ -114,6 +114,95 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
                     
                     self.mapView.addAnnotation(annotation)
                 }
+            }
+        }
+    }
+    
+    func getTimeToStopForId(id: String) -> String
+    {
+        var returnString = ""
+        var stopTimes: [BusStop] = stops.objectForKey(id) as! [BusStop]
+        
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute | NSCalendarUnit.CalendarUnitWeekday, fromDate: date)
+        
+        let hour = components.hour
+        let minutes = components.minute
+        let dayOfWeek = components.day
+        
+        var max = stopTimes.count - 1
+        for index in 0...max
+        {
+            let stopTime: BusStop = stopTimes[index] as BusStop
+            
+            if(isCorrectDay(dayOfWeek, stopDay: stopTime.day))
+            {
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "HH:mm:ss"
+                let stopCalendar = NSCalendar.currentCalendar()
+                let stopDate = dateFormatter.dateFromString(stopTime.time) as NSDate?
+                
+                if(stopDate != nil)
+                {
+                    let stopComponents = stopCalendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: stopDate!)
+                
+                    let stopHour = stopComponents.hour
+                    let stopMinute = stopComponents.minute
+                
+                    if(stopHour < hour && stopMinute < minutes)
+                    {
+                        var hoursLeft = hour - stopHour
+                        var minutesLeft = minutes - stopMinute
+                    
+                        if(hoursLeft > 0)
+                        {
+                            returnString = "\(hoursLeft) hours and "
+                        }
+                    
+                        returnString = "\(returnString)\(minutesLeft) minutes till arrival"
+                    
+                        return returnString
+                    }
+                }
+            }
+        }
+        
+        return returnString
+    }
+    
+    func isCorrectDay(day: Int, stopDay: NSString) -> Bool
+    {
+        if(day == 1 || day == 7)
+        {
+            var sunday = day == 1
+            var stopSunday = stopDay.containsString("Sunday")
+            var stopSaturday = stopDay.containsString("Saturday")
+            
+            if(sunday && stopSunday)
+            {
+                return true
+            }
+            else if(!sunday && stopSaturday)
+            {
+                return true
+            }
+            else
+            {
+                return false
+            }
+        }
+        else
+        {
+            var stopWeekday = stopDay.containsString("Weekday")
+            
+            if(stopWeekday)
+            {
+                return true
+            }
+            else
+            {
+                return false
             }
         }
     }
