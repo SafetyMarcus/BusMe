@@ -175,7 +175,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         
         var customAnnotation = annotation as! BusStopAnnotation
         customAnnotation.title = titles.objectForKey(customAnnotation.id) as! String
-        customAnnotation.subtitle = getTimeToStopForId(customAnnotation.id)
         
         annotationView.annotation = customAnnotation
         annotationView.image = UIImage(named: "map_icon")
@@ -187,6 +186,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     {
         if let stopAnnotation = view.annotation as? BusStopAnnotation
         {
+            stopAnnotation.subtitle = getTimeToStopForId(stopAnnotation.id)
             UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
                 self.bottomSheet.center.y += self.bottomSheet.frame.height
                 }, completion: { (Bool) -> Void in
