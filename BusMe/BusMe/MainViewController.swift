@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 import CoreLocation
+import CoreData
 
 class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSURLConnectionDataDelegate
 {
@@ -26,6 +27,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        var appContext = UIApplication.sharedApplication().delegate as! AppDelegate
         
         self.mapView.setUserTrackingMode(.Follow, animated: true)
         self.busStop.text = "Select a bus stop to get started"
@@ -37,38 +39,68 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         self.manager.requestAlwaysAuthorization()
         self.manager.startUpdatingLocation()
         
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT as Int
-        let flag = 0 as UInt
-
-        if let path = NSBundle.mainBundle().pathForResource("stop_times", ofType: "txt")
+        let fetchRequest = NSFetchRequest(entityName: "BusStopTime")
+        
+        let fetchResults = appContext.managedObjectContext?.executeFetchRequest(fetchRequest, error: nil)
+        
+        if(fetchResults == nil || fetchResults!.count == 0)
         {
-            var stopTimesText = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
-            var stopsArray = stopTimesText?.componentsSeparatedByString("\r\n")
-            
-            for index in 1...stopsArray!.count - 2
+            if let path = NSBundle.mainBundle().pathForResource("stop_times", ofType: "txt")
             {
-                if let value = stopsArray?[index]
+                var stopTimesText = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
+                var stopsArray = stopTimesText?.componentsSeparatedByString("\r\n")
+                
+                for index in 1...stopsArray!.count - 2
                 {
-                    var stopArray = value.componentsSeparatedByString(",")
-                    var day = stopArray[0]
-                    var time = stopArray[1]
-                    
-                    var stopString = stopArray[4] as NSString
-                    var stop = stopString.integerValue
-                    
-                    var stopId = stopArray[3]
-                    
-                    var existingIds: [String] = self.stops.allKeys as! [String]
-                    
-                    var stopsArray = [BusStop]()
-                    
-                    if contains(existingIds, stopId)
+                    if let value = stopsArray?[index]
                     {
-                        stopsArray = self.stops.objectForKey(stopId) as! [BusStop]
+                        var stopArray = value.componentsSeparatedByString(",")
+                        var day = stopArray[0]
+                        var time = stopArray[1]
+                        
+                        var stopString = stopArray[4] as NSString
+                        var stop = stopString.integerValue
+                        
+                        var stopId = stopArray[3]
+                        
+                        var existingIds: [String] = self.stops.allKeys as! [String]
+                        
+                        var stopsArray = [BusStop]()
+                        
+                        if contains(existingIds, stopId)
+                        {
+                            stopsArray = self.stops.objectForKey(stopId) as! [BusStop]
+                        }
+                        
+                        var busStop = BusStop(id: stopId, day: day, time: time, stopNo: stop)
+                        
+                        busStop.save(appContext.managedObjectContext!)
+                        stopsArray.append(busStop)
+                        self.stops.setObject(stopsArray, forKey: stopId)
                     }
-                    
-                    stopsArray.append(BusStop(day: day, time: time, stopNo: stop))
-                    self.stops.setObject(stopsArray, forKey: stopId)
+                }
+                
+                appContext.saveContext()
+            }
+        }
+        else
+        {
+            if let results = fetchResults
+            {
+                for index in 0...results.count - 1
+                {
+                    let busStop: NSManagedObject = results[index] as! NSManagedObject
+                    var stop = BusStop(stopObject: busStop)
+                
+                    var stopsArray = [BusStop]()
+                    var existingIds = stops.allKeys as! [String]
+                    if contains(existingIds, stop.id)
+                    {
+                        stopsArray = stops.objectForKey(stop.id) as! [BusStop]
+                    }
+                
+                    stopsArray.append(stop)
+                    self.stops.setObject(stopsArray, forKey: stop.id)
                 }
             }
         }

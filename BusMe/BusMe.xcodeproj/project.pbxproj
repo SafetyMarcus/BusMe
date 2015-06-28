@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0D54971B3F7207000662CD /* BusMe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D54951B3F7207000662CD /* BusMe.xcdatamodeld */; };
 		2C20F83F1B3E58E2004A932C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C20F83E1B3E58E2004A932C /* AppDelegate.swift */; };
-		2C20F8421B3E58E2004A932C /* BusMe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C20F8401B3E58E2004A932C /* BusMe.xcdatamodeld */; };
 		2C20F8471B3E58E2004A932C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C20F8451B3E58E2004A932C /* Main.storyboard */; };
 		2C20F8491B3E58E3004A932C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C20F8481B3E58E3004A932C /* Images.xcassets */; };
 		2C20F84C1B3E58E3004A932C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C20F84A1B3E58E3004A932C /* LaunchScreen.xib */; };
@@ -32,10 +32,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C0D54961B3F7207000662CD /* BusMe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BusMe.xcdatamodel; sourceTree = "<group>"; };
 		2C20F8391B3E58E2004A932C /* BusMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BusMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C20F83D1B3E58E2004A932C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C20F83E1B3E58E2004A932C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2C20F8411B3E58E2004A932C /* BusMe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BusMe.xcdatamodel; sourceTree = "<group>"; };
 		2C20F8461B3E58E2004A932C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C20F8481B3E58E3004A932C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2C20F84B1B3E58E3004A932C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -92,14 +92,14 @@
 			isa = PBXGroup;
 			children = (
 				2C20F8631B3E5ADE004A932C /* MainViewController.swift */,
+				2CBF44D51B3EED0700EC3667 /* BusStopAnnotation.swift */,
 				2CBF44CB1B3EBB2100EC3667 /* BusStop.swift */,
 				2C20F83E1B3E58E2004A932C /* AppDelegate.swift */,
 				2C20F8451B3E58E2004A932C /* Main.storyboard */,
 				2C20F8481B3E58E3004A932C /* Images.xcassets */,
 				2C20F84A1B3E58E3004A932C /* LaunchScreen.xib */,
-				2C20F8401B3E58E2004A932C /* BusMe.xcdatamodeld */,
+				2C0D54951B3F7207000662CD /* BusMe.xcdatamodeld */,
 				2C20F83C1B3E58E2004A932C /* Supporting Files */,
-				2CBF44D51B3EED0700EC3667 /* BusStopAnnotation.swift */,
 			);
 			path = BusMe;
 			sourceTree = "<group>";
@@ -238,10 +238,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C0D54971B3F7207000662CD /* BusMe.xcdatamodeld in Sources */,
 				2CBF44CC1B3EBB2100EC3667 /* BusStop.swift in Sources */,
 				2C20F8641B3E5ADE004A932C /* MainViewController.swift in Sources */,
 				2CBF44D61B3EED0700EC3667 /* BusStopAnnotation.swift in Sources */,
-				2C20F8421B3E58E2004A932C /* BusMe.xcdatamodeld in Sources */,
 				2C20F83F1B3E58E2004A932C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -452,12 +452,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		2C20F8401B3E58E2004A932C /* BusMe.xcdatamodeld */ = {
+		2C0D54951B3F7207000662CD /* BusMe.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				2C20F8411B3E58E2004A932C /* BusMe.xcdatamodel */,
+				2C0D54961B3F7207000662CD /* BusMe.xcdatamodel */,
 			);
-			currentVersion = 2C20F8411B3E58E2004A932C /* BusMe.xcdatamodel */;
+			currentVersion = 2C0D54961B3F7207000662CD /* BusMe.xcdatamodel */;
 			path = BusMe.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
