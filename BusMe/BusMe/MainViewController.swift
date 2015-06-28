@@ -208,7 +208,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     func getTimeToStopForId(id: String) -> String
     {
+        var returnString = ""
         var stopTimes: [BusStop] = stops.objectForKey(id) as! [BusStop]
+        var currentHoursLeft = -1
+        var currentMinutesLeft = -1
         
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -219,7 +222,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         let dayOfWeek = components.weekday
         
         var max = stopTimes.count - 1
-        for index in 0...max
+        for index in stride(from: max, through: 0, by: -1)
         {
             let stopTime: BusStop = stopTimes[index] as BusStop
             
@@ -237,9 +240,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
                     let stopHour = stopComponents.hour
                     let stopMinute = stopComponents.minute
                 
-                    if(stopHour > hour)
+                    if(stopHour > hour || (stopHour == hour && stopMinute > minutes))
                     {
-                        var returnString = ""
                         var hoursLeft = stopHour - hour
                         
                         var minutesLeft = -1
@@ -254,20 +256,31 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
                             minutesLeft = 60 - minutes
                         }
                     
-                        if(hoursLeft > 0)
+                        if(currentHoursLeft == -1 || hoursLeft < currentHoursLeft || (hoursLeft == currentHoursLeft && minutesLeft < currentMinutesLeft))
                         {
-                            returnString = "\(hoursLeft) hours and "
+                            returnString = ""
+                            currentHoursLeft = hoursLeft
+                            currentMinutesLeft = minutesLeft
+                            
+                            if(hoursLeft > 0)
+                            {
+                                returnString = "\(hoursLeft) hours and "
+                            }
+                            returnString = "\(returnString)\(minutesLeft) minutes till arrival"
                         }
-                    
-                        returnString = "\(returnString)\(minutesLeft) minutes till arrival"
-                    
-                        return returnString
                     }
                 }
             }
         }
         
-        return "No more buses for today"
+        if(currentHoursLeft != -1)
+        {
+            return returnString
+        }
+        else
+        {
+            return "No more buses for today"
+        }
     }
     
     func isCorrectDay(day: Int, stopDay: NSString) -> Bool

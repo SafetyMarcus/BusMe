@@ -24,19 +24,19 @@
                                 </connections>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YG5-hJ-rqL">
-                                <rect key="frame" x="0.0" y="446" width="600" height="154"/>
+                                <rect key="frame" x="0.0" y="498" width="600" height="102"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time to arrival" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVb-xc-0jp">
-                                        <rect key="frame" x="37" y="66" width="491" height="21"/>
+                                        <rect key="frame" x="37" y="40" width="491" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="PcA-cC-RA9"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.58023595328282829" green="0.58023595328282829" blue="0.58023595328282829" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bus Stop" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rsd-u9-ttb">
-                                        <rect key="frame" x="37" y="8" width="491" height="53"/>
+                                        <rect key="frame" x="37" y="8" width="491" height="36"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -46,11 +46,12 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Rsd-u9-ttb" firstAttribute="top" secondItem="YG5-hJ-rqL" secondAttribute="top" constant="8" id="3J7-qQ-XdH"/>
-                                    <constraint firstAttribute="bottom" secondItem="KVb-xc-0jp" secondAttribute="bottom" constant="67" id="52k-Dn-6hC"/>
+                                    <constraint firstAttribute="bottom" secondItem="KVb-xc-0jp" secondAttribute="bottom" constant="41" id="52k-Dn-6hC"/>
                                     <constraint firstItem="KVb-xc-0jp" firstAttribute="leading" secondItem="YG5-hJ-rqL" secondAttribute="leading" constant="37" id="6I5-YJ-ugP"/>
                                     <constraint firstItem="Rsd-u9-ttb" firstAttribute="leading" secondItem="YG5-hJ-rqL" secondAttribute="leading" constant="37" id="EnI-2X-n12"/>
+                                    <constraint firstAttribute="height" constant="102" id="FqD-8S-tRs"/>
                                     <constraint firstAttribute="trailing" secondItem="KVb-xc-0jp" secondAttribute="trailing" constant="72" id="GZU-WX-0Yl"/>
-                                    <constraint firstItem="KVb-xc-0jp" firstAttribute="top" secondItem="Rsd-u9-ttb" secondAttribute="bottom" constant="5" id="J8W-dT-WNM"/>
+                                    <constraint firstItem="KVb-xc-0jp" firstAttribute="top" secondItem="Rsd-u9-ttb" secondAttribute="bottom" constant="-4" id="J8W-dT-WNM"/>
                                     <constraint firstAttribute="trailing" secondItem="Rsd-u9-ttb" secondAttribute="trailing" constant="72" id="lvG-cT-A8Z"/>
                                 </constraints>
                             </view>
@@ -64,7 +65,7 @@
                             <constraint firstItem="YG5-hJ-rqL" firstAttribute="leading" secondItem="q1N-K3-42A" secondAttribute="leading" id="Mh1-fE-0Gd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="YG5-hJ-rqL" secondAttribute="trailing" constant="-16" id="SUf-yY-jkd"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="q1N-K3-42A" secondAttribute="bottom" id="bH7-ce-KM2"/>
-                            <constraint firstItem="YG5-hJ-rqL" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="382" id="en8-iC-Kpv"/>
+                            <constraint firstItem="YG5-hJ-rqL" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="434" id="en8-iC-Kpv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="q1N-K3-42A" secondAttribute="trailing" constant="-16" id="iBb-iS-1c1"/>
                             <constraint firstItem="YG5-hJ-rqL" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="y57-WH-1X2"/>
                         </constraints>
