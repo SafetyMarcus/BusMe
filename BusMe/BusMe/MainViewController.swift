@@ -182,23 +182,38 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         return annotationView
     }
     
+    func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!)
+    {
+        for view in views
+        {
+            var annotationView = view as! MKAnnotationView
+            annotationView.canShowCallout = false
+        }
+    }
+    
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!)
     {
-        if let stopAnnotation = view.annotation as? BusStopAnnotation
-        {
-            stopAnnotation.subtitle = getTimeToStopForId(stopAnnotation.id)
-            UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
-                self.bottomSheet.center.y += self.bottomSheet.frame.height
-                }, completion: { (Bool) -> Void in
-                    self.animateSheetIn(view.annotation)
+        UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
+            self.bottomSheet.center.y += self.bottomSheet.frame.height
+            }, completion: { (Bool) -> Void in
+                self.animateSheetIn(view.annotation)
             })
-        }
+
     }
     
     func animateSheetIn(stopAnnotation: MKAnnotation)
     {
-        self.busStop.text = stopAnnotation.title
-        self.busTime.text = stopAnnotation.subtitle
+        if let stopAnnotation = stopAnnotation as? BusStopAnnotation
+        {
+            stopAnnotation.subtitle = getTimeToStopForId(stopAnnotation.id)
+            self.busStop.text = stopAnnotation.title
+            self.busTime.text = stopAnnotation.subtitle
+        }
+        else
+        {
+            self.busStop.text = "This is you"
+            self.busTime.text = ""
+        }
         
         UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
             self.bottomSheet.center.y -= self.bottomSheet.frame.height
